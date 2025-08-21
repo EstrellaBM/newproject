@@ -13,7 +13,7 @@ const ENDPOINTS = {
   status: `${API_BASE}/device-status`,
   on: `${API_BASE}/turn-on-device`,
   off: `${API_BASE}/turn-off-device`,
-  logs: `${API_BASE}/device-logs`,
+  logs: `${API_BASE}/device-logs`, // Mantenido para evitar errores, aunque no se use
 };
 const TOKEN_KEY = "device_token";
 
@@ -63,7 +63,7 @@ const statusDisplay = document.getElementById("statusDisplay");
 const turnOnBtn = document.getElementById("turnOnBtn");
 const turnOffBtn = document.getElementById("turnOffBtn");
 const refreshBtn = document.getElementById("refreshBtn");
-const logsTableBody = document.querySelector("#logsTable tbody");
+// const logsTableBody = document.querySelector("#logsTable tbody"); // Eliminado ya que la tabla no existe
 
 /* =============================
     UI STATE & NAVIGATION
@@ -107,13 +107,8 @@ navLinks.forEach((link) => {
       if (view === "logout") {
         handleLogout();
       } else {
-        // Si el usuario está autenticado, no lo dejes ir a login/register,
-        // pero si lo dejes ir a "Home" que ahora es el dashboard.
-        if (view === "welcome" || view === "register" || view === "login") {
-          showView("control");
-        } else {
-          showView(view);
-        }
+        // Si el usuario está autenticado, siempre lo redirigimos al control
+        showView("control");
       }
     } else {
       // Si no está autenticado, lo dejas ir a cualquier vista
@@ -179,7 +174,6 @@ loginForm.addEventListener("submit", async (e) => {
       showView("control");
       updateControlPanel();
       getDeviceStatus();
-      getDeviceLogs();
     } else {
       loginMessage.textContent = data.message || "Enroll ID no encontrado.";
       loginMessage.style.color = "red";
@@ -207,32 +201,20 @@ async function getDeviceStatus() {
     if (res.ok) {
       statusDisplay.textContent = data.status;
       lastValueDisplay.textContent = data.lastValue;
+
+      // Actualiza la clase activa de los botones
+      turnOnBtn.classList.remove("active");
+      turnOffBtn.classList.remove("active");
+      if (data.status === "on") {
+        turnOnBtn.classList.add("active");
+      } else if (data.status === "off") {
+        turnOffBtn.classList.add("active");
+      }
     } else {
       console.error(data.message);
     }
   } catch (err) {
     console.error("Failed to fetch device status:", err);
-  }
-}
-
-async function getDeviceLogs() {
-  if (!isAuthenticated()) return;
-  try {
-    const res = await fetch(ENDPOINTS.logs, {
-      headers: { Authorization: `Bearer ${getToken()}` },
-    });
-    const data = await res.json();
-    if (res.ok) {
-      logsTableBody.innerHTML = "";
-      data.forEach((log) => {
-        const row = `<tr><td>${log.action}</td><td>${new Date(
-          log.timestamp
-        ).toLocaleString()}</td></tr>`;
-        logsTableBody.innerHTML += row;
-      });
-    }
-  } catch (err) {
-    console.error("Failed to fetch device logs:", err);
   }
 }
 
@@ -250,8 +232,8 @@ async function controlDevice(action) {
     });
     const data = await res.json();
     if (res.ok) {
+      // Llama a getDeviceStatus para reflejar el nuevo estado
       getDeviceStatus();
-      getDeviceLogs();
     } else {
       console.error(data.message);
     }

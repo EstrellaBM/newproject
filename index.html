@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Device Control</title>
+    <title>Control de Dispositivos</title>
     <link rel="stylesheet" href="./src/style.css" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   </head>
@@ -11,11 +11,11 @@
     <div class="main-container">
       <header>
         <nav>
-          <a href="#" class="nav-link" data-view="welcome">Home</a>
-          <a href="#" class="nav-link" data-view="register">Register</a>
-          <a href="#" class="nav-link" data-view="login">Login</a>
+          <a href="#" class="nav-link" data-view="welcome">Inicio</a>
+          <a href="#" class="nav-link" data-view="register">Registro</a>
+          <a href="#" class="nav-link" data-view="login">Ingresar</a>
           <a href="#" class="nav-link" id="logoutBtn" style="display: none"
-            >Logout</a
+            >Cerrar Sesión</a
           >
         </nav>
       </header>
@@ -23,22 +23,22 @@
       <main id="content-container">
         <section id="welcomeView" class="view">
           <div class="welcome-card">
-            <h1>Welcome to Device Control</h1>
-            <p>Please register a new device.</p>
+            <h1>Bienvenido!!</h1>
+            <p>Por favor, registra un nuevo usuario.</p>
           </div>
         </section>
 
         <section id="registerView" class="view" style="display: none">
           <div class="form-card">
-            <h2>Register Device</h2>
+            <h2>Registrar Usuario</h2>
             <form id="registerForm">
-              <label for="deviceName">Device Name:</label>
+              <label for="deviceName">Correo:</label>
               <input type="text" id="deviceName" required />
 
-              <label for="enrollId">Enroll ID:</label>
-              <input type="text" id="enrollId" required />
+              <label for="enrollId">Contraseña:</label>
+              <input type="password" id="enrollId" required />
 
-              <button type="submit" id="registerBtn">Register</button>
+              <button type="submit" id="registerBtn">Registrar</button>
             </form>
             <div id="registerMessage" class="message"></div>
           </div>
@@ -46,11 +46,11 @@
 
         <section id="loginView" class="view" style="display: none">
           <div class="form-card">
-            <h2>Login to Device</h2>
+            <h2>Ingresar</h2>
             <form id="loginForm">
-              <label for="loginEnrollId">Enroll ID:</label>
-              <input type="text" id="loginEnrollId" required />
-              <button type="submit" id="loginBtn">Login</button>
+              <label for="loginEnrollId">Registro:</label>
+              <input type="password" id="loginEnrollId" required />
+              <button type="submit" id="loginBtn">Ingresar</button>
             </form>
             <div id="loginMessage" class="message"></div>
           </div>
@@ -59,29 +59,16 @@
         <section id="controlView" class="view" style="display: none">
           <div class="device-card">
             <h2 id="deviceControlTitle">
-              Device Control: <span id="deviceNameDisplay"></span>
+              Control de Dispositivo: <span id="deviceNameDisplay"></span>
             </h2>
-            <p>Enroll ID: <span id="enrollIdDisplay"></span></p>
-            <p>Last Value: <span id="lastValueDisplay"></span></p>
-            <p>Status: <span id="statusDisplay">OFF</span></p>
+            <p>Registro: <span id="enrollIdDisplay"></span></p>
+            <p>Último Valor: <span id="lastValueDisplay"></span></p>
+            <p>Estado: <span id="statusDisplay">APAGADO</span></p>
 
             <div class="button-group">
-              <button id="turnOnBtn">Turn On</button>
-              <button id="turnOffBtn">Turn Off</button>
-              <button id="refreshBtn">Refresh</button>
-            </div>
-
-            <div class="usage-logs">
-              <h3>Usage Logs</h3>
-              <table id="logsTable">
-                <thead>
-                  <tr>
-                    <th>Action</th>
-                    <th>Date and Time</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
+              <button id="turnOnBtn">Encender</button>
+              <button id="turnOffBtn">Apagar</button>
+              <button id="refreshBtn">Actualizar</button>
             </div>
           </div>
         </section>
