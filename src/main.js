@@ -6,7 +6,7 @@ import "./style.css";
 /* =============================
     CONFIG
 ============================= */
-const API_BASE = "https://desarrolloiot.onrender.com/status"; // Tu API
+const API_BASE = "https://desarrolloiot.onrender.com"; // Tu API
 const ENDPOINTS = {
   status: `${API_BASE}/status`,
   turnOn: `${API_BASE}/status/turn-on`,
