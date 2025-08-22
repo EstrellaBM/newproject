@@ -6,13 +6,14 @@ import "./style.css";
 /* =============================
     CONFIG
 ============================= */
-const API_BASE = "https://desarrolloiot.onrender.com"; // Tu API
+const API_BASE = "https://desarrolloiot.onrender.com";
+
 const ENDPOINTS = {
+  // Las rutas de tu backend
   status: `${API_BASE}/status`,
-  turnOn: `${API_BASE}/status/turn-on`,
-  turnOff: `${API_BASE}/status/turn-off`,
-  // Nuevo endpoint para registrar usuarios o dispositivos
-  registerDevice: `${API_BASE}/register-device`, // Asume que este es el endpoint
+  turnOn: `${API_BASE}/turn-on`,
+  turnOff: `${API_BASE}/turn-off`,
+  registerDevice: `${API_BASE}/register-device`,
 };
 
 // Login simulado:
