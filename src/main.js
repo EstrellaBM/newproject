@@ -3,21 +3,23 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./style.css";
 
 /* =============================
-    CONFIG
+    CONFIG
 ============================= */
 
 const API_BASE = "https://desarrolloiot.onrender.com"; // Tu API
 const ENDPOINTS = {
   status: `${API_BASE}/status`,
-  turnOn: `${API_BASE}/status/turn-on`,
-  turnOff: `${API_BASE}/status/turn-off`, // Nuevo endpoint para registrar usuarios o dispositivos
-  registerDevice: `${API_BASE}/register-device`, // Asume que este es el endpoint
+  turnOn: `${API_BASE}/turn-on`, // Corregido: removido "/status"
+  turnOff: `${API_BASE}/turn-off`, // Corregido: removido "/status"
+  registerDevice: `${API_BASE}/register-device`,
 };
 
 // Login simulado:
 const TOKEN_KEY = "token_demo";
 /* =============================
-    AUTH HELPERS
+
+    AUTH HELPERS
+
 ============================= */
 
 const isAuthenticated = () => Boolean(localStorage.getItem(TOKEN_KEY));
@@ -34,7 +36,7 @@ const getToken = () => localStorage.getItem(TOKEN_KEY);
 
 /* =============================
 
-    DOM REFS
+    DOM REFS
 
 ============================= */
 
@@ -74,7 +76,7 @@ const btnOff = document.querySelector("#btnOff");
 
 /* =============================
 
-    UI STATE
+    UI STATE
 
 ============================= */
 
@@ -126,7 +128,7 @@ function updateNav() {
 
 /* =============================
 
-    EVENTOS GENERALES
+    EVENTOS GENERALES
 
 ============================= */
 
@@ -158,7 +160,7 @@ logoutBtn.addEventListener("click", () => {
 
 /* =============================
 
-    LOGIN (PERSONALIZADO)
+    LOGIN (PERSONALIZADO)
 
 ============================= */
 
@@ -237,7 +239,7 @@ loginForm.addEventListener("submit", async (e) => {
 
 /* =============================
 
-    CONTROL FOCO (API)
+    CONTROL FOCO (API)
 
 ============================= */
 
@@ -347,7 +349,7 @@ btnOff.addEventListener("click", turnOff);
 
 /* =============================
 
-    INICIALIZACIÓN
+    INICIALIZACIÓN
 
 ============================= */
 
