@@ -12,7 +12,7 @@ import "./style.css";
 
 ============================= */
 
-const API_BASE = "https://desarrolloiot.onrender.com/status"; // Tu API
+const API_BASE = "https://desarrolloiot.onrender.com"; // Tu API
 
 const ENDPOINTS = {
   status: `${API_BASE}/status`,
