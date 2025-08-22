@@ -160,7 +160,10 @@ loginForm.addEventListener("submit", async (e) => {
     try {
       const statusRes = await fetch(ENDPOINTS.status);
       const statusData = await statusRes.json();
-      currentLightStatus = statusData.status;
+      // ¡Aquí está el cambio! Solo toma el valor booleano
+      const isOn = statusData.status.isOn;
+      // Y lo convierte a un string "on" o "off"
+      currentLightStatus = isOn ? "on" : "off";
     } catch (err) {
       console.error(
         "No se pudo obtener el estado del foco para registrarlo:",
@@ -168,7 +171,7 @@ loginForm.addEventListener("submit", async (e) => {
       );
     }
 
-    // 2. Llama a la nueva función para registrar el dispositivo con el email, contraseña y estado del foco
+    // 2. Llama a la nueva función para registrar el dispositivo con el email, contraseña y el string "on"/"off"
     await registerDevice(email, pass, currentLightStatus);
 
     // Navega al dashboard
