@@ -1,37 +1,23 @@
-// Bootstrap desde npm (sin CDN)
-
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
 import "./style.css";
 
 /* =============================
-
     CONFIG
-
 ============================= */
 
 const API_BASE = "https://desarrolloiot.onrender.com"; // Tu API
-
 const ENDPOINTS = {
   status: `${API_BASE}/status`,
-
   turnOn: `${API_BASE}/status/turn-on`,
-
   turnOff: `${API_BASE}/status/turn-off`, // Nuevo endpoint para registrar usuarios o dispositivos
-
   registerDevice: `${API_BASE}/register-device`, // Asume que este es el endpoint
 };
 
 // Login simulado:
-
 const TOKEN_KEY = "token_demo";
-
 /* =============================
-
     AUTH HELPERS
-
 ============================= */
 
 const isAuthenticated = () => Boolean(localStorage.getItem(TOKEN_KEY));

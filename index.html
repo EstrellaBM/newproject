@@ -2,118 +2,97 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Control</title>
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard | Vite + Bootstrap</title>
   </head>
-  <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-dark bg-dark px-3">
-      <a class="navbar-brand" href="#">Mi Panel</a>
-      <div class="d-flex align-items-center gap-2">
-        <span id="userEmail" class="text-light small d-none"></span>
-        <button id="loginBtn" class="btn btn-outline-light btn-sm">
-          Login
-        </button>
-        <button id="logoutBtn" class="btn btn-outline-warning btn-sm d-none">
+  <body class="pink-theme">
+    <nav class="navbar-interactive">
+      <a class="logo-text" href="#">Panel IoT</a>
+      <div class="user-info-container">
+        <span id="userEmail" class="user-email-text d-none"></span>
+        <button id="loginBtn" class="nav-button">Login</button>
+        <button id="logoutBtn" class="nav-button logout-btn d-none">
           Logout
         </button>
       </div>
     </nav>
 
-    <div class="d-flex">
-      <!-- SIDEBAR -->
-      <aside id="sidebar" class="sidebar bg-light border-end">
-        <ul class="nav flex-column p-2">
-          <li class="nav-item">
-            <a class="nav-link active" href="#" data-view="dashboard"
-              >Dashboard</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-view="light">Control de Foco</a>
-          </li>
-        </ul>
-      </aside>
+    <main class="main-content-area">
+      <div class="view-navigation-header">
+        <button class="nav-button nav-link-btn" data-view="dashboard">
+          Dashboard
+        </button>
+        <button class="nav-button nav-link-btn" data-view="light">
+          Control de Foco
+        </button>
+      </div>
 
-      <!-- CONTENIDO -->
-      <main class="flex-grow-1 p-3">
-        <!-- LOGIN VIEW -->
-        <section id="loginView" class="container" style="max-width: 420px">
-          <h3 class="mb-3">Inicia sesión</h3>
-          <form id="loginForm" class="card p-3 shadow-sm">
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input
-                id="email"
-                type="email"
-                class="form-control"
-                placeholder="ejemplo@hotmail.com"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input
-                id="password"
-                type="password"
-                class="form-control"
-                placeholder="123456"
-                required
-              />
-            </div>
-            <button class="btn btn-primary w-100" type="submit">Entrar</button>
-            <div id="loginError" class="text-danger small mt-2 d-none"></div>
-          </form>
-        </section>
-
-        <!-- DASHBOARD VIEW -->
-        <section id="dashboardView" class="d-none">
-          <h3>Bienvenido 👋</h3>
-          <p class="text-muted">
-            Usa el menú lateral. En “Control de Foco” probamos la API.
-          </p>
-          <div class="alert alert-info">
-            Esta es una vista de ejemplo del dashboard.
+      <section id="loginView" class="view-card animated-card">
+        <h3 class="card-title">Inicia Sesión</h3>
+        <form id="loginForm" class="login-form">
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              type="email"
+              class="form-input"
+              placeholder="ejemplo@hotmail.com"
+              required
+            />
           </div>
-        </section>
-
-        <!-- LIGHT CONTROL VIEW -->
-        <section id="lightView" class="d-none">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <h3 class="m-0">Control de Foco</h3>
-            <span id="lightStatusBadge" class="badge text-bg-secondary"
-              >Desconocido</span
-            >
+          <div class="form-group">
+            <label for="password" class="form-label">Contraseña</label>
+            <input
+              id="password"
+              type="password"
+              class="form-input"
+              placeholder="••••••"
+              required
+            />
           </div>
+          <button class="action-button primary-button" type="submit">
+            Entrar
+          </button>
+          <div id="loginError" class="error-text d-none"></div>
+        </form>
+      </section>
 
-          <div class="card p-3 shadow-sm" style="max-width: 520px">
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="d-flex align-items-center gap-3">
-                <div id="lightBulb" class="bulb bulb-off"></div>
-                <div>
-                  <div class="fw-bold">
-                    Estado: <span id="lightStateText">Apagado</span>
-                  </div>
-                  <small class="text-muted"
-                    >Controla el foco con la API protegida</small
-                  >
-                </div>
-              </div>
-              <div class="d-flex gap-2">
-                <button id="btnOn" class="btn btn-success">Encender</button>
-                <button id="btnOff" class="btn btn-outline-secondary">
-                  Apagar
-                </button>
-              </div>
+      <section id="dashboardView" class="view-card d-none animated-card">
+        <h3 class="card-title">Bienvenido 👋</h3>
+        <p class="card-subtitle">
+          Selecciona una opción del menú de navegación.
+        </p>
+      </section>
+
+      <section id="lightView" class="view-card d-none animated-card">
+        <h3 class="card-title">Control de Foco</h3>
+        <div class="light-control-container">
+          <div class="light-status-area">
+            <div id="lightBulb" class="bulb bulb-off"></div>
+            <div class="status-info">
+              <span class="status-label">Estado:</span>
+              <span id="lightStateText" class="status-value">Apagado</span>
             </div>
-            <div id="lightError" class="text-danger small mt-2 d-none"></div>
+            <span id="lightStatusBadge" class="status-badge">Desconocido</span>
           </div>
-        </section>
-      </main>
-    </div>
+          <div class="control-buttons">
+            <button id="btnOn" class="action-button on-button">Encender</button>
+            <button id="btnOff" class="action-button off-button">Apagar</button>
+          </div>
+        </div>
+        <div id="lightError" class="error-text d-none"></div>
+      </section>
+    </main>
 
-    <!-- Vite -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="./src/main.js"></script>
+    <script>
+      const bootstrapCss = document.createElement("link");
+      bootstrapCss.rel = "stylesheet";
+      bootstrapCss.href =
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css";
+      document.head.appendChild(bootstrapCss);
+    </script>
   </body>
 </html>
