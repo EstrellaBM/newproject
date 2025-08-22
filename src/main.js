@@ -210,46 +210,41 @@ async function registerDevice(email, password, lightStatus) {
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-
   loginError.classList.add("d-none");
 
   const email = emailInput.value.trim();
-
   const pass = passInput.value;
 
   if (email && pass) {
     login(); // Simula el login
-
     localStorage.setItem("last_email", email);
+    updateNav();
 
-    updateNav(); // 1. Obtener el estado actual del foco desde la API
-
+    // 1. Obtener el estado actual del foco desde la API
     let currentLightStatus = "off"; // Valor predeterminado
-
     try {
       const statusRes = await fetch(ENDPOINTS.status);
-
       const statusData = await statusRes.json();
-
-      currentLightStatus = statusData.status;
+      // ¡Aquí está el cambio! Solo toma el valor booleano
+      const isOn = statusData.status.isOn;
+      // Y lo convierte a un string "on" o "off"
+      currentLightStatus = isOn ? "on" : "off";
     } catch (err) {
       console.error(
         "No se pudo obtener el estado del foco para registrarlo:",
-
         err
       );
-    } // 2. Llama a la nueva función para registrar el dispositivo con el email, contraseña y estado del foco
+    }
 
-    await registerDevice(email, pass, currentLightStatus); // Navega al dashboard
+    // 2. Llama a la nueva función para registrar el dispositivo con el email, contraseña y el string "on"/"off"
+    await registerDevice(email, pass, currentLightStatus);
 
+    // Navega al dashboard
     links.forEach((l) => l.classList.remove("active"));
-
     document.querySelector('[data-view="dashboard"]').classList.add("active");
-
     showView("dashboard");
   } else {
     loginError.textContent = "Por favor, ingresa un email y una contraseña.";
-
     loginError.classList.remove("d-none");
   }
 });
